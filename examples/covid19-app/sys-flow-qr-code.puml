@@ -1,0 +1,35 @@
+@startuml system-flow_check-in
+
+Actor User 
+
+
+group Check in
+User -> App : venue check in
+App -> VenueQRPoster : scan venue QR code (check in)
+App -> App : local secure storage (visited venues)
+end
+...
+
+group Upload Identified Risk venues
+participant "PHE/PHW/CTAS" #LightGrey
+"PHE/PHW/CTAS" -> RiskVenues: tag risk venues
+RiskVenues -> UploadAPI: Upload full list of identified risk venues
+end
+...
+group Match risk venues and alert user
+  App -> DistributionAPI : poll identified risk venues
+  App <- DistributionAPI : list of identified risk venues
+
+  App -> App : check, matches found
+  App -> App : analyse risk (matched-venues), trigger alert (matched-venues)
+
+  App -> CircuitBreaker : confirm alert (matched-venues)
+  ...
+  ref over App, CircuitBreaker
+  CircuitBreaker, see system flow for exposure notifications
+  end ref 
+  ...
+  App <- CircuitBreaker : confirm
+  App -> User : alert user (matched-venues)
+end
+@enduml

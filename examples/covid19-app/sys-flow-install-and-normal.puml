@@ -1,0 +1,48 @@
+@startuml system-flow_install-and-normal
+
+Actor User 
+
+Participant AppStores order 30 #LightGrey
+
+group Installation and Onboarding
+App -> App : install
+App -> User : ask postal district
+App -> User : ask consent encounter detection, ...
+App -> DistributionAPI: get initial config and data
+App -> App:  show home screen
+end
+
+group Normal Use
+User -> App : (re)open app
+App -> AppStores : check bundle version
+App <- AppStores : send bundle meta data
+App -> AppAvailability : check app version
+App <- AppAvailability : send minimum OS and App version
+App -> App: no update needed
+
+App -> DistributionAPI: poll exposure risk configuration
+App <- DistributionAPI: 
+App -> DistributionAPI: poll self isolation configuration
+App <- DistributionAPI
+
+App -> DistributionAPI: poll diagnosis keys
+App <- DistributionAPI
+
+App -> DistributionAPI: poll postal district risk levels
+App <- DistributionAPI
+
+App -> DistributionAPI: poll identified risk venues
+App <- DistributionAPI
+...
+
+User -> App: use app features, e.g. venue check-in
+...
+
+App -> App: risk analysis check matches, none found
+...
+
+App -> SubmissionAPI: send daily analytics data 
+...
+end
+
+@enduml
