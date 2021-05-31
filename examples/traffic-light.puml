@@ -1,0 +1,27 @@
+@startuml
+/' This example uses UK style traffic lights. Which follow this sequence
+    Red - stop
+    Red and amber - prepare to go
+    Green - go
+    Amber - stop
+    '/
+' States cyle as stop-prepare-go
+' Within the stop state there are two states - amber then red.
+
+' States
+state Prepare: Red and Amber
+
+state Go: Green
+
+state Stop{
+    state 1: Amber
+    state 2: Red
+    1 --> 2
+}
+
+' Transitions
+Stop --> Prepare
+Prepare --> Go
+Go --> Stop
+
+@enduml
