@@ -1,0 +1,26 @@
+@startuml
+
+node client as "Client" 
+
+node firewall as "Firewall" 
+
+node linux1 as "Linux" {
+
+node web as "Web Server" 
+
+}
+
+node app as "Application Server" 
+
+node db as "Database"
+
+
+client -- firewall
+
+firewall -- web
+
+web -right- app
+
+app -right- db
+
+@enduml
