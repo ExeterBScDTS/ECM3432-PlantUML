@@ -1,11 +1,33 @@
 @startuml
-class Dummy {
-  String data
-  void methods()
+
+skinparam classAttributeIconSize 0
+
+abstract AbstractClassName {
+  {abstract} +public_method():void
 }
 
-class Flight {
-   flightNumber : Integer
-   departureTime : Date
+class ClassName {
+  #str data
+  -private_method()
+  #protected_method()
+  +public_method():void
 }
+
+
+AbstractClassName <|-- ClassName
+
+
+class Interface <<interface>> {
+  +public_method():void
+}
+
+class Implementation {
+ +public_method():void
+}
+
+Interface <|..right Implementation
+
+Implementation "1"*--"1" ClassName
+
+
 @enduml
