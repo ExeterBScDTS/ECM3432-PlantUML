@@ -35,7 +35,7 @@ sudo apt install graphviz
 
 ### Installing the PlantUML server
 
-Installing your own server is not normally required.  If you do choose to install the server the Docker is recommended.
+Installing your own server is not normally required.  If you do choose to install the server Docker is recommended.
 
 ```sh
 $ docker run -d -p 8080:8080 plantuml/plantuml-server:jetty
