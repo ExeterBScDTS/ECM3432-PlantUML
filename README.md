@@ -1,4 +1,4 @@
-# ECM2429-UML
+# ECM3432-PlantUML
 
 Draw UML diagrams using plain text scripts.
 
