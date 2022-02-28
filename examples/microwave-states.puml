@@ -1,0 +1,34 @@
+@startuml
+
+/'
+This diagram based on Fig 5.17 p157
+Sommerville, 10th ed.
+'/
+
+state Microwave_Oven_Operation {
+Checking : do: check status
+
+Checking -> Cook : OK
+Cook : do: run generator
+
+Checking --> Alarm : Turntable fault
+
+Checking --> Alarm : Emitter fault
+
+Alarm: do: display event
+
+Cook --> Done : Timeout
+Cook -up-> Cook : Time
+
+
+Done: do: buzzer for 5 sec
+
+}
+
+Alarm --> Disabled
+Microwave_Oven_Operation --> Disabled : Door open
+
+Done --> Waiting
+Microwave_Oven_Operation --> Waiting : Cancel
+
+@enduml
